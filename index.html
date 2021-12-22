@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=0.5">
+		<link rel="stylesheet" href="styles.css">
+		<script type="module" src="script.js"></script>
+		
+		<title>NASA ASTRONOMICAL STORY</title>
+	</head>
+
+	<body>
+		<nav>
+			{{^private}}
+				<a href='login'>Login</a>
+				<a href='signup'>Signup</a>
+			{{/private}}
+			
+			{{#private}}
+				<a href='acc-det'>
+					<img src='{{avatar}}'>
+				
+				</a>
+				<a onclick='logout()'>Logout</a>
+				<a href='weather-app'>See Weather Forecast</a>
+				<a href='nasa-pod'>See Blogs about NASA</a>
+				
+			{{/private}}
+			
+		</nav>
+		<main>
+			<div>
+				<h1>
+					NASA ASTRONOMICAL STORY
+				</h1>
+				<h2>
+					National Aeronautics and Space Administration (NASA)'s Story with their cool pictures  
+				</h2>
+			</div>
+		</main>
+		<footer>
+			Made with Love © 2021
+		</footer>
+	</body>
+
+</html>

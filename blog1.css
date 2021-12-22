@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=McLaren&display=swap');
+
+body {
+	margin: auto;
+	width: 70vw;
+	height: 100vh;
+	overflow-x: hidden;
+	font-family: 'McLaren', cursive;
+	color: white;
+	/*background-image: url(ar-viz.jpg);*/
+	text-align: center;
+	background: #000000d0;
+	padding-top: 50px;
+}
+
+h2 {
+	font-size: 36px;
+	color: yellow;
+}
+
+.footer {
+	position: absolute;
+	left: 0;
+	height: 50px;
+	width: 100vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: pink;
+}
+
+nav {
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: flex;
+	flex-direction: row-reverse;
+	width: 40vw;
+	height: 50px;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 20px;
+	margin-right: 20px;
+}
+
+nav a {
+	color: white;
+	text-decoration: none;
+	padding: 0.5em;
+	cursor: pointer;
+}
+
+nav a img {
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	object-fit: cover;
+	background-color: white;
+}
+
+nav a:hover {
+	background-color: #ffffff75;
+	color: black;
+}

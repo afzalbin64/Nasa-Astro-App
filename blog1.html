@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<!--<meta name="viewport" content="width=device-width, initial-scale=0.5">-->
+		<link rel="stylesheet" href="blog1.css">
+		<!--<script type="module" src="script.js"></script>-->
+
+		<title>Time Series Analyser Blog</title>
+	</head>
+
+	<body>
+		<nav>
+			{{^private}}
+				<a href='login'>Login</a>
+				<a href='signup'>Signup</a>
+			{{/private}}
+
+			{{#private}}
+				<a href='acc-det'>
+					<img src='{{avatar}}'>
+
+				</a>
+				<a onclick='logout()'>Logout</a>
+				<a href='weather-app'>See Weather Forecast</a>
+			{{/private}}
+
+		</nav>
+
+		<p><span id="spancomment1869" class="comment-highlite" data-commentid="1869" style="color:green; font-size: 36px;">This Blog deals with the problem of flight price prediction<br />
+			</span></p>
+		<h2>1. Objective</h2>
+		<p>The objective of this article is to predict flight prices given the various parameters. Data used in this article is publicly available at Kaggle. This will be a regression problem since the target or dependent variable is the price (continuous numeric value).</p>
+		<h2>2. Introduction</h2>
+		<p>Airline companies use complex algorithms to calculate flight prices given various conditions present at that particular time. These methods take financial, marketing, and various social factors into account to predict flight prices.</p>
+		<p>Nowadays, the number of people using flights has increased significantly. It is difficult for airlines to maintain prices since prices change dynamically due to different conditions. That’s why we will try to use machine learning to solve this problem. This can help airlines by predicting what prices they can maintain. It can also help customers to predict future flight prices and plan their journey accordingly.</p>
+		<h2>3. Data Used</h2>
+		<p>Data was used from Kaggle which is a freely available platform for data scientists and machine learning enthusiasts.</p>
+		<p class="">Source: <a href="https://www.kaggle.com/nikhilmittal/flight-fare-prediction-mh">https://www.kaggle.com/nikhilmittal/flight-fare-prediction-mh</a></p>
+		<p class="">We are using jupyter-notebook to run Flight Price Prediction task.</p>
+		<h2>4. Data Analysis</h2>
+		<p>The procedure of extracting information from given raw data is called data analysis. Here we will use <b>eda</b> module of <b>data-prep </b>library to do this step.</p>
+		<pre>from dataprep.eda import create_report
+import pandas as pd
+dataframe = pd.read_excel("../output/Data_Train.xlsx")
+create_report(dataframe)</pre>
+		<p><img loading="lazy" class="alignnone" src="https://lh5.googleusercontent.com/NHHjF121z9g1-ryPI0xKd9oMD_r5RyQfggec7Q3YCCv91iUhbNI28ui97XKH6uLdgMiXMDwFjFeC4J8-b_hXaEPPCqz-yUF3IQ9r2gQY6e5V5bKQo-NHuKP6XZ1iMz0sIHPe-VKk" alt="Lazy Prediction overview" width="624" height="277" /></p>
+		<p>After running the above code you will get a report as shown in the above figure. This report contains various sections or tabs. &#8216;Overview&#8217; section of this report provides us with all the basic information of the data we are using. For the current data we are using we got the following information:</p>
+		<blockquote>
+			<p>Number of variables = 11<br />
+				Number of rows = 10683<br />
+				Number of categorical type of feature = 10<br />
+				Number of numerical type of feature = 1<br />
+				Nuplicate rows = 220 e.t.c</p>
+		</blockquote>
+		<p class="">Let&#8217;s explore other sections of the report one by one.</p>
+		<h3>4.1 Variables</h3>
+		<p class="">After you select the variable section you will get information as shown in the below figures.</p>
+		<p class=""><img loading="lazy" class="alignnone" src="https://lh6.googleusercontent.com/kWbcWXm4FMxjiSzAhQe-6axv8viPzuCDFlmugevsXDk013RRvf5cB8JGWMtvS4HPRHqTf8r4johTQFYsufKJyAer68iDHlsl5y_4GXBwZgDWspiPTqHXnggof_ECS8oMLB0M4yer" alt="Lazy Prediction variables" width="624" height="361" /></p>
+		<p class=""><img loading="lazy" class="alignnone" src="https://lh6.googleusercontent.com/-YoEG7kia3KBrNUzEuOBzMrZtsKMHLmC_DsbZnFSrCKghLBkXDc9mU9SiUBdGeTzCXbc2hN0J1LQzOtPCNGX5RlmgC8m5lyrTNNMIS_Hl1EHAFvif21m_zcgmsqFaBRhFjSilIiy" alt="Lazy Prediction variables 2" width="624" height="335" /></p>
+		<p class=""><img loading="lazy" class="alignnone" src="https://lh6.googleusercontent.com/ETVKfrZnAS6EOiOp8z3Z-kyFsXRr1JF1LAlkbBZ5LJlEo6LydvpoVFG1s9a85CBg6WQE3TLuoPd5yvymL45uoKFxff_Ncv94lruHADy4Mhd2QFiITcZZnd3TEpxL_9yShy5iBBbu" alt="Lazy Prediction variables 2" width="624" height="339" /></p>
+		<p class="">This section provides the type of each variable along with a detailed description of the variable.</p>
+		<h3>4.2 Missing Values</h3>
+		<p>This section has multiple ways using which we can analyze missing values in variables. We will discuss three mostly used methods, bar-chart, spectrum, and Heat Map. Let&#8217;s explore each one by one.</p>
+		<h3>4.2.1 Bar Chart</h3>
+		<p class=""><img loading="lazy" class="alignnone" src="https://lh4.googleusercontent.com/RiLJD197Aq2uN3XRX9aHPOQL2EJWTs0fDNkqzDUefxp2pbXeEVoe4CXluHIMWpSVxUEFBkGNZw7wvkOPBAi9ArN3gL-ySLineUFGgAHaeyz3jt_O-AVOPygjWuB0Fgd1qzKhjLed" alt="Lazy Prediction bar chart" width="624" height="295" /></p>
+		<p class="">The bar chart method shows the &#8216;number of missing and present values&#8217; in each variable in a different color.</p>
+		<h3>4.2.2 Spectrum</h3>
+		<p class=""><img loading="lazy" class="alignnone" src="https://lh5.googleusercontent.com/L25G438dXJcdW7BvomTnwqsqz0tuw9EgVtUHdIUeSd8lKbPNVICtnbw_DcbnzWJWEMWuRqWejCbZqptKxFoUdAslmVZAv-P9NV8rrgR3j-hZLothdyB35mp5ytItibc52olUKct0" alt="Lazy Prediction spectrum" width="624" height="307" /></p>
+		<p class="">The spectrum method shows the percentage of missing values in each variable.</p>
+		<h3>4.2.3 Heat Map</h3>
+		<p class=""><img loading="lazy" class="alignnone" src="https://lh4.googleusercontent.com/OJbzN8quuZLwwoHD7CkxmgErrZsAY1hIl4MKgxXWFf-__vjF6FNs7i6eqJ6xFzJ4ny-pARhyK4Eq1IuTpw_YxDoRPDgFcLsGzfmcvtbqwRbH06ArwzEu7am7iCMBtNNfAH-3TEsF" alt="Heat map Lazy Prediction" width="624" height="284" /></p>
+		<p class="">The heat Map method shows variables having missing values in terms of correlation. Since &#8216;Route&#8217; and &#8216;Total_Stops&#8217; both are highly correlated, they both have missing values.</p>
+		<p class="">As we can observe &#8216;Route&#8217; and &#8216;Total_Stops&#8217; variables have missing values. Since we did not find any missing values information from Bar-Chart and Spectrum method but we found missing value variables using the Heat Map method. Combining both of these information, we can say that the &#8216;Route&#8217; and &#8216;Total_Stops&#8217; variables have missing values but are very low.</p>
+		<h2>5. Data Preparation</h2>
+		<p class="">Before starting data preparation let&#8217;s have a glimpse of data first.</p>
+		<pre>dataframe.head()</pre>
+		<p><img loading="lazy" class="alignnone" src="https://lh4.googleusercontent.com/aXtrmTf_bRJ8vvG0nwYeIxet9jYdIYaIyOEWgDOMmuMAouo2kKbofEGA9SCxq5mLVWvZWh5nGJHSL8boRPF_qiDYWVf726bsu0s4d6gmPunLRQLzKj7yudduIu20j7bdivMNBtzb" alt="Lazy Prediction head" width="624" height="112" /></p>
+		<p>As we saw in Data Analysis there are 11 variables in the given data. Below is the description of each variable.</p>
+		<p class=""><b>Airline</b>: Name of the airline used for traveling</p>
+		<p class=""><b>Date_of_Journey</b>: Date at which a person traveled</p>
+		<p class=""><b>Source</b>: Starting location of flight</p>
+		<p class=""><b>Destination</b>: Ending location of flight</p>
+		<p class=""><b>Route</b>: This contains information on starting and ending location of the journey in the standard format used by airlines.</p>
+		<p class=""><b>Dep_Time</b>: Departure time of flight from starting location</p>
+		<p class=""><b>Arrival_Time</b>: Arrival time of flight at destination</p>
+		<p class=""><b>Duration</b>: Duration of flight in hours/minutes</p>
+		<p class=""><b>Total_Stops</b>: Number of total stops flight took before landing at the destination.</p>
+		<p class=""><b>Additional_Info</b>: Shown any additional information about a flight</p>
+		<p class=""><b>Price</b>: Price of the flight</p>
+		<p class="">Few observations about some of the variables:</p>
+		<p class="">1. &#8216;<b>Price</b>&#8216; will be our dependent variable and all remaining variables can be used as independent variables.</p>
+		<p class="">2. &#8216;<b>Total_Stops</b>&#8216; can be used to determine if the flight was direct or connecting.</p>
+		<h3>5.1 Handling Missing Values</h3>
+		<p class="">As we found out the &#8216;Route&#8217; and &#8216;Total_Stops&#8217; variables have very low missing values in data. Let&#8217;s now see the percentage of missing values in data.</p>
+		<pre>(dataframe.isnull().sum()/dataframe.shape[0])*100</pre>
+		<p>Output :</p>
+		<pre>Airline            0.000000
+Date_of_Journey    0.000000
+Source             0.000000
+Destination        0.000000
+<b>Route</b>              <b>0.009361</b>
+Dep_Time           0.000000
+Arrival_Time       0.000000
+Duration           0.000000
+<b>Total_Stops</b>        <b>0.009361</b>
+Additional_Info    0.000000
+Price              0.000000
+dtype: float64</pre>
+		<p>As we can observe &#8216;Route&#8217; and &#8216;Total_Stops&#8217; both have 0.0094% of missing values. In this case, it is better to drop missing values.</p>
+		<pre>dataframe.dropna(inplace= True)
+dataframe.isnull().sum()</pre>
+		<p>Output :</p>
+		<pre>Airline            0
+Date_of_Journey    0
+Source             0
+Destination        0
+Route              0
+Dep_Time           0
+Arrival_Time       0
+Duration           0
+Total_Stops        0
+Additional_Info    0
+Price              0
+dtype: int64</pre>
+		<p>Now we don&#8217;t have any missing values.</p>
+		<h3>5.2 Handling Date and Time Variables</h3>
+		<p class="">We have &#8216;Date_of_Journey&#8217;, a &#8216;date type variable and &#8216;Dep_Time&#8217;, &#8216;Arrival_Time&#8217; that captures time information.</p>
+		<p class="">We can extract &#8216;Journey_day&#8217; and &#8216;Journey_Month&#8217; from the &#8216;Date_of_Journey&#8217; variable. &#8216;Journey day&#8217; shows the day of the month on which the journey was started.</p>
+		<pre>dataframe["Journey_day"] = pd.to_datetime(dataframe.Date_of_Journey, format="%d/%m/%Y").dt.day
+<span style="font-size: 10.7188px;">dataframe</span>["Journey_month"] = pd.to_datetime(dataframe["Date_of_Journey"], format = "%d/%m/%Y").dt.month
+<span style="font-size: 10.7188px;">dataframe</span>.drop(["Date_of_Journey"], axis = 1, inplace = True)</pre>
+		<p><span style="font-size: 16px; text-align: justify; font-family: Roboto, sans-serif;">Similarly, we can extract &#8216;Departure_Hour&#8217; and &#8216;Departure_Minute&#8217; as well as &#8216;Arrival_Hour and &#8216;Arrival_Minute&#8217; from &#8216;Dep_Time&#8217; and &#8216;Arrival_Time&#8217; variables respectively.</span></p>
+		<pre>dataframe["Dep_hour"] = pd.to_datetime(dataframe["Dep_Time"]).dt.hour
+<span style="font-size: 10.7188px;">dataframe</span>["Dep_min"] = pd.to_datetime(dataframe["Dep_Time"]).dt.minute
+<span style="font-size: 10.7188px;">dataframe</span>.drop(["Dep_Time"], axis = 1, inplace = True)</pre>
+		<pre>dataframe["Arrival_hour"] = pd.to_datetime(dataframe.Arrival_Time).dt.hour
+<span style="font-size: 10.7188px;">dataframe</span>["Arrival_min"] = pd.to_datetime(dataframe.Arrival_Time).dt.minute
+<span style="font-size: 10.7188px;">dataframe</span>.drop(["Arrival_Time"], axis = 1, inplace = True)</pre>
+		<p>We also have duration information on the &#8216;Duration&#8217; variable. This variable contains both duration hours and minutes information combined.</p>
+		<p class="">We can extract &#8216;Duration_hours&#8217; and &#8216;Duration_minutes&#8217; separately from the &#8216;Duration&#8217; variable.</p>
+		<pre>def get_duration(x):
+    x=x.split(' ')
+    hours=0
+    mins=0
+    if len(x)==1:
+        x=x[0]
+        if x[-1]=='h':
+            hours=int(x[:-1])
+        else:
+            mins=int(x[:-1])
+    else:
+        hours=int(x[0][:-1])
+        mins=int(x[1][:-1])
+    return hours,mins
+dataframe['Duration_hours']=dataframe.Duration.apply(lambda x:get_duration(x)[0])
+dataframe['Duration_mins']=dataframe.Duration.apply(lambda x:get_duration(x)[1])
+dataframe.drop(["Duration"], axis = 1, inplace = True)</pre>
+		<h3>5.3 Handling Categorical Data</h3>
+		<p><span style="font-size: 16px; text-align: justify; font-family: Roboto, sans-serif;">Airline, Source, Destination, Route, Total_Stops, Additional_info are the categorical variables we have in our data. Let&#8217;s handle each one by one.</span></p>
+		<p class=""><b>Airline Variable</b></p>
+		<p class="">Let&#8217;s see how the Airline variable is related to the Price variable.</p>
+		<pre>import seaborn as sns
+sns.set()
+sns.catplot(y = "Price", x = "Airline", data = train_data.sort_values("Price", ascending = False), kind="boxen", height = 6, aspect = 3)
+plt.show()</pre>
+		<div class="medium-insert-images">
+			<figure><img loading="lazy" class="alignnone" src="https://editor.analyticsvidhya.com/uploads/49742airline_vs_price.jpg" alt="categorical data" width="1152" height="576" /></figure>
+		</div>
+		<p>As we can see the name of the airline matters. &#8216;JetAirways Business&#8217; has the highest price range. Other airlines price also varies.</p>
+		<p class="">Since the <b>Airline</b> variable is <b>Nominal Categorical Data</b> (There is no order of any kind in airline names) we will use <b>one-hot encoding</b> to handle this variable.</p>
+		<pre>Airline = dataframe[["Airline"]]
+Airline = pd.get_dummies(Airline, drop_first= True)</pre>
+		<p class="">One-Hot encoded &#8216;Airline&#8217; data is saved in the Airline variable as shown in the above code.</p>
+		<p class=""><b>Source and Destination Variable</b></p>
+		<p class="">Again &#8216;Source&#8217; and &#8216;Destination&#8217; variables are Nominal Categorical Data. We will use One-Hot encoding again to handle these two variables.</p>
+		<pre>Source = dataframe[["Source"]]
+Source = pd.get_dummies(Source, drop_first= True)
+Destination = train_data[["Destination"]]
+Destination = pd.get_dummies(Destination, drop_first = True)</pre>
+		<p><b>Route variable</b></p>
+		<p class="">Route variable represents the path of the journey. Since the &#8216;Total_Stops&#8217; variable captures the information if the flight is direct or connected so I have decided to drop this variable.</p>
+		<pre>dataframe.drop(["Route", "Additional_Info"], axis = 1, inplace = True)</pre>
+		<p><b>Total_Stops Variable</b></p>
+		<pre>dataframe["Total_Stops"].unique()</pre>
+		<p>Output:</p>
+		<pre>array(['non-stop', '2 stops', '1 stop', '3 stops', '4 stops'],
+      dtype=object)</pre>
+		<p>Here, non-stop means 0 stops which means direct flight. Similarly meaning other values is obvious. We can see it is an <b>Ordinal Categorical Data </b>so we will use <b>LabelEncoder</b> here to handle this variable.</p>
+		<pre>dataframe.replace({"non-stop": 0, "1 stop": 1, "2 stops": 2, "3 stops": 3, "4 stops": 4}, inplace = True)</pre>
+		<p><b>Additional_Info variable</b></p>
+		<pre>dataframe.Additional_Info.unique()</pre>
+		<p>Output:</p>
+		<pre>array(['No info', 'In-flight meal not included',
+       'No check-in baggage included', '1 Short layover', 'No Info',
+       '1 Long layover', 'Change airports', 'Business class',
+       'Red-eye flight', '2 Long layover'], dtype=object)</pre>
+		<p>As we can see, this feature captures relevant that can affect flight price significantly. Also &#8216; No Info&#8217; values are repeated. Let&#8217;s handle that first.</p>
+		<pre>dataframe['Additional_Info'].replace({"No info": 'No Info'}, inplace = True)</pre>
+		<p>Now this variable is also Nominal Categorical Data. Let&#8217;s use One-Hot Encoding to handle this variable.</p>
+		<pre>Add_info = dataframe[["Additional_Info"]]
+Add_info = pd.get_dummies(Add_info, drop_first = True)</pre>
+		<h3>5.4 Final Dataframe</h3>
+		<p class="">Now we will create the final dataframe by concatenating all the One-hot and Label-encoded features to the original dataframe. We will also remove original variables using which we have prepared new encoded variables.</p>
+		<pre>dataframe = pd.concat([dataframe, Airline, Source, Destination,Add_info], axis = 1)
+dataframe.drop(["Airline", "Source", "Destination","Additional_Info"], axis = 1, inplace = True)</pre>
+		<p class="">Let&#8217;s see the number of final variables we have in dataframe.</p>
+		<pre>dataframe.shape[1]</pre>
+		<p>Output:</p>
+		<pre>38</pre>
+		<p>So, we have 38 variables in the final dataframe including the dependent variable &#8216;Price&#8217;. There are only 37 variables for training.</p>
+		<h2>6. Model Building</h2>
+		<pre>X=dataframe.drop('Price',axis=1)
+y=dataframe['Price']
+#train-test split
+from sklearn.model_selection import train_test_split
+<span style="font-size: 12.25px; text-align: left;">x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, random_state = 42)</span></pre>
+		<h3><span style="text-align: left;">6.1 Applying Lazy Prediction</span></h3>
+		<p class="" style="text-align: left;">One of the problems of the model-building exercise is &#8216;How to decide which machine learning algorithm to apply ?&#8217;</p>
+		<p class="" style="text-align: left;">This is where Lazy Prediction comes into the picture. Lazy Prediction is a machine learning library available in python that can quickly provide us with performances of multiple standard classifications or regression models on multiple performance matrices.</p>
+		<p class="" style="text-align: left;">Let&#8217;s see how it works&#8230;</p>
+		<p class="" style="text-align: left;">Since we are working on a Regression task we will use Regressor models.</p>
+		<pre>from lazypredict.Supervised import LazyRegressor
+reg = LazyRegressor(verbose=0, ignore_warnings=False, custom_metric=None)
+models, predictions = reg.fit(x_train, x_test, y_train, y_test)
+models.head(10)</pre>
+		<div class="medium-insert-images">
+			<figure><img loading="lazy" class="alignnone" src="https://editor.analyticsvidhya.com/uploads/59596Screenshot from 2021-06-18 12-50-25.png" alt="adjusted r-squared" width="586" height="348" /></figure>
+		</div>
+		<p class="">As we can see LazyPredict gives us results of multiple models on multiple performance matrices. In the above figure, we have shown the top ten models.</p>
+		<p class="">Here &#8216;XGBRegressor&#8217; and &#8216;ExtraTreesRegressor&#8217; outperform other models significantly. It does take a high amount of training time with respect to other models. At this step we can choose priority either we want &#8216;time&#8217; or &#8216;performance&#8217;.</p>
+		<p class="">We have decided to choose &#8216;performance&#8217; over training time. So we will train &#8216;XGBRegressor and visualize the final results.</p>
+		<h3>6.2 Model Training</h3>
+		<pre>from xgboost import XGBRegressor
+model =  XGBRegressor()
+model.fit(x_train,y_train)</pre>
+		<p>Output:</p>
+		<pre>XGBRegressor(base_score=0.5, booster='gbtree', colsample_bylevel=1,
+             colsample_bynode=1, colsample_bytree=1, gamma=0, gpu_id=-1,
+             importance_type='gain', interaction_constraints='',
+             learning_rate=0.300000012, max_delta_step=0, max_depth=6,
+             min_child_weight=1, missing=nan, monotone_constraints='()',
+             n_estimators=100, n_jobs=0, num_parallel_tree=1, random_state=0,
+             reg_alpha=0, reg_lambda=1, scale_pos_weight=1, subsample=1,
+             tree_method='exact', validate_parameters=1, verbosity=None)</pre>
+		<p>Let&#8217;s check Model performance&#8230;</p>
+		<pre>y_pred =  model.predict(x_test)
+print('Training Score :',model.score(x_train, y_train))
+print('Test Score     :',model.score(x_test, y_test))</pre>
+		<p>Output:</p>
+		<pre>Training Score : 0.9680428701701702
+Test Score     : 0.918818721300552</pre>
+		<p>As we can see the model score is pretty good. Let&#8217;s visualize the results of few predictions.</p>
+		<pre>number_of_observations=50
+
+x_ax = range(len(y_test[:number_of_observations]))
+
+plt.plot(x_ax, y_test[:number_of_observations], label="original")
+
+plt.plot(x_ax, y_pred[:number_of_observations], label="predicted")
+
+plt.title("Flight Price test and predicted data")
+
+plt.xlabel('Observation Number')
+
+plt.ylabel('Price')
+
+plt.legend()
+
+plt.show()</pre>
+		<div class="medium-insert-images">
+			<figure><img loading="lazy" class="alignnone" src="https://editor.analyticsvidhya.com/uploads/48550test_and_predicted_data.png" alt="plot" width="410" height="284" /></figure>
+		</div>
+		<p class="">As we can observe in the above figure, model predictions and original prices are overlapping. This visual result confirms the high model score which we saw earlier.</p>
+		<h2>7. Conclusion</h2>
+		<p class="">In this article, we saw how to apply Laze Prediction library to choose the best machine learning algorithm for the task at hand.</p>
+		<p class="">Lazy Prediction saves time and efforts to build a machine learning model by providing model performance and training time. One can choose either based on the situation at hand.</p>
+		<p class="">It can also be used to build an ensemble of machine learning models. There are so many ways one can use the LazyPredict library&#8217;s functionalities.</p>
+		<p class="">I hope this article helped you to understand Data Analysis, Data Preparation, and Model building approaches in a much simpler way.</p>
+
+		<div class="footer">
+			Made with Love © 2021
+		</div>
+	</body>
+
+</html>

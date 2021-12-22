@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>NASA APOD</title>
+		<link rel="stylesheet" href="ns.css">
+		<script type="module" src="scpt.js"></script>
+		<link rel="icon" type="image/png" href="https://s2.googleusercontent.com/s2/favicons?domain=www.nasa.gov">
+	</head>
+
+	<body>
+		<nav>
+			{{^private}}
+				<a href='login'>Login</a>
+				<a href='signup'>Signup</a>
+			{{/private}}
+
+			{{#private}}
+				<a href='acc-det'>
+					<img src='{{avatar}}'>
+
+				</a>
+				<a onclick='logout()'>Logout</a>
+				<a href='weather-app'>See Weather Forecast</a>
+			{{/private}}
+
+		</nav>
+		
+		<main>
+	
+		<div class="loader hidden">
+			<img src="rkt.svg" alt="Rocket Loading Animation">
+		</div>
+		
+		<div class="container">
+		
+			<div class="navigation-container">
+				<span class="background"></span>
+			
+				<span class="navigation-items hidden" id="favoritesNav">
+					<h3 class="clickable" onclick="getNasaPictures()">Load More NASA Images</h3>
+				</span>
+			</div>
+		
+			<div class="images-container"></div>
+		</div>
+		 
+		<div class="save-confirmed" hidden>
+			<h1>ADDED!</h1>
+		</div>
+		
+		<span class="navigation-items" id="resultsNav">
+			
+			<h3 class="clickable" onclick="getNasaPictures()">Load More</h3>
+		</span>
+		</main>
+
+		<footer>
+			Made with Love © 2021
+		</footer>
+	</body>
+
+</html>
